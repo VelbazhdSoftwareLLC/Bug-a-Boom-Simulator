@@ -1,6 +1,6 @@
 ﻿/*******************************************************************************
-* Bug A Boom Slot Simulation version 0.9.1                                     *
-* Copyrights (C) 2014-2023 Velbazhd Software LLC                               *
+* Bug A Boom Slot Simulation version 0.9.2                                     *
+* Copyrights (C) 2014-2026 Velbazhd Software LLC                               *
 *                                                                              *
 * developed by Todor Balabanov ( todor.balabanov@gmail.com )                   *
 * Sofia, Bulgaria                                                              *
@@ -474,11 +474,6 @@ namespace CSharpSimulation
 				freeGameSymbolsHitRate [number] [symbol]++;
 			}
 
-			/* Collect information for the volatility index. */
-			if (volatilityEstimation == true) {
-				volatilitySum += Hi [number] [symbol] * (win - volatilityRTP) * (win - volatilityRTP);
-			}
-
 			return (win);
 		}
 
@@ -541,11 +536,6 @@ namespace CSharpSimulation
 			} else if (win > 0 && freeGamesNumber > 0) {
 				freeSymbolMoney [numberOfScatters] [12] += win * freeGamesMultiplier;
 				freeGameSymbolsHitRate [numberOfScatters] [12]++;
-			}
-
-			/* Collect information for the volatility index. */
-			if (volatilityEstimation == true) {
-				volatilitySum += Hi [numberOfScatters] [12] * (win - volatilityRTP) * (win - volatilityRTP);
 			}
 
 			return (win);
@@ -660,6 +650,9 @@ namespace CSharpSimulation
 
 			/* Volatility is estimated only for the base game. */
 			if (volatilityEstimation == true) {
+				double spinReturn = (double)win / (double)totalBet;
+				
+				volatilitySum += (spinReturn - volatilityRTP) * (spinReturn - volatilityRTP);
 				return;
 			}
 
@@ -728,6 +721,7 @@ namespace CSharpSimulation
 			/* Collect volatility statistics. */
 			wonMoney = 0;
 			baseMoney = 0;
+			freeMoney = 0;
 			lostMoney = 0;
 			volatilitySum = 0;
 			totalNumberOfGames = 0;
@@ -740,6 +734,22 @@ namespace CSharpSimulation
 					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 				};
 			baseGameSymbolsHitRate = new long [] []{
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+				};
+			freeSymbolMoney = new long [] []{
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+				};
+			freeGameSymbolsHitRate = new long [] []{
 					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -767,6 +777,7 @@ namespace CSharpSimulation
 			/* Collect volatility statistics. */
 			wonMoney = 0;
 			baseMoney = 0;
+			freeMoney = 0;
 			lostMoney = 0;
 			volatilitySum = 0;
 			totalNumberOfGames = 0;
@@ -779,6 +790,22 @@ namespace CSharpSimulation
 					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 				};
 			baseGameSymbolsHitRate = new long [] []{
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+				};
+			freeSymbolMoney = new long [] []{
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+				};
+			freeGameSymbolsHitRate = new long [] []{
 					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 					new long [] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -848,7 +875,7 @@ namespace CSharpSimulation
 			Console.WriteLine ("* -ci<number>     Confidence interval (default 0.95).                         *");
 			Console.WriteLine ("*                                                                             *");
 			Console.WriteLine ("* -slices         Volatility calculation instead of simulation.               *");
-			Console.WriteLine ("* -s<number>      Slices sample size (default 100).                           *");
+			Console.WriteLine ("* -sample<number> Slices sample size (default 100).                           *");
 			Console.WriteLine ("*                                                                             *");
 			Console.WriteLine ("* -verify         Print input data structures.                                *");
 			Console.WriteLine ("*                                                                             *");
@@ -1227,8 +1254,8 @@ namespace CSharpSimulation
 					slicesReels = true;
 				}
 
-				if (args.Length > 0 && args [a].Contains ("-s")) {
-					String parameter = args [a].Substring (2);
+				if (args.Length > 0 && args [a].Contains ("-sample")) {
+					String parameter = args [a].Substring (7);
 
 					try {
 						sampleSize = Int32.Parse (parameter);
